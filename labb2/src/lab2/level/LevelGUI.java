@@ -91,16 +91,16 @@ public class LevelGUI implements Observer {
     private void makePath(Graphics g) {
       g.setColor(Color.red);
       if (lv.currentRoom.northDoor != null) {
-        g.drawLine(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y + lv.currentRoom.height / 2, lv.currentRoom.northDoor.x + lv.currentRoom.northDoor.width / 2, lv.currentRoom.northDoor.y + lv.currentRoom.northDoor.height / 2);
+        g.drawLine(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y, lv.currentRoom.northDoor.x + lv.currentRoom.northDoor.width / 2, lv.currentRoom.northDoor.y + lv.currentRoom.northDoor.height / 2);
       }
       if (lv.currentRoom.southDoor != null) {
-        g.drawLine(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y + lv.currentRoom.height / 2, lv.currentRoom.southDoor.x + lv.currentRoom.southDoor.width / 2, lv.currentRoom.southDoor.y + lv.currentRoom.southDoor.height / 2);
+        g.drawLine(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y + lv.currentRoom.height - 3, lv.currentRoom.southDoor.x + lv.currentRoom.southDoor.width / 2, lv.currentRoom.southDoor.y + lv.currentRoom.southDoor.height / 2);
       }
       if (lv.currentRoom.eastDoor != null) {
-        g.drawLine(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y + lv.currentRoom.height / 2, lv.currentRoom.eastDoor.x + lv.currentRoom.eastDoor.width / 2, lv.currentRoom.eastDoor.y + lv.currentRoom.eastDoor.height / 2);
+        g.drawLine(lv.currentRoom.x + lv.currentRoom.width - 3, lv.currentRoom.y + lv.currentRoom.height / 2, lv.currentRoom.eastDoor.x + lv.currentRoom.eastDoor.width / 2, lv.currentRoom.eastDoor.y + lv.currentRoom.eastDoor.height / 2);
       }
       if (lv.currentRoom.westDoor != null) {
-        g.drawLine(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y + lv.currentRoom.height / 2, lv.currentRoom.westDoor.x + lv.currentRoom.westDoor.width / 2, lv.currentRoom.westDoor.y + lv.currentRoom.westDoor.height / 2);
+        g.drawLine(lv.currentRoom.x, lv.currentRoom.y + lv.currentRoom.height / 2, lv.currentRoom.westDoor.x + lv.currentRoom.westDoor.width / 2, lv.currentRoom.westDoor.y + lv.currentRoom.westDoor.height / 2);
       }
     }
 
