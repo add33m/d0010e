@@ -20,7 +20,7 @@ public class Room {
     this.floorColor = color;
     this.width = dx;
     this.height = dy;
-    
+
     // System.out.println(dx + " " + dy + " " + color);
   }
 
@@ -43,7 +43,7 @@ public class Room {
   public boolean isConnectedNorth() {
     return this.northDoor != null;
   }
-  
+
   public boolean isConnectedSouth() {
     return this.southDoor != null;
   }

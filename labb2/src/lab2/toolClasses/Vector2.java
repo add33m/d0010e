@@ -1,7 +1,7 @@
 package lab2.toolClasses;
 
 // Basic Vector2
-public class Vector2 { 
+public class Vector2 {
   public final int x;
   public final int y;
 

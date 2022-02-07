@@ -70,8 +70,8 @@ public class LevelGUI implements Observer {
       for (Room room : this.lv.rooms) {
 
         if (room.westDoor != null) {
-          g.setColor(room.westDoor.floorColor); //Sätter dörren till nästa rums färg
-          g.fillRect(room.x, room.y + 4 * (room.height / 10), 3, 2 * (room.height / 10)); //Ritar dörr
+          g.setColor(room.westDoor.floorColor); // Sätter dörren till nästa rums färg
+          g.fillRect(room.x, room.y + 4 * (room.height / 10), 3, 2 * (room.height / 10)); // Ritar dörr
         }
         if (room.eastDoor != null) {
           g.setColor(room.eastDoor.floorColor);
@@ -91,20 +91,28 @@ public class LevelGUI implements Observer {
     private void makePath(Graphics g) {
       g.setColor(Color.red);
       if (lv.currentRoom.northDoor != null) {
-        g.drawLine(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y, lv.currentRoom.northDoor.x + lv.currentRoom.northDoor.width / 2, lv.currentRoom.northDoor.y + lv.currentRoom.northDoor.height / 2);
+        g.drawLine(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y,
+            lv.currentRoom.northDoor.x + lv.currentRoom.northDoor.width / 2,
+            lv.currentRoom.northDoor.y + lv.currentRoom.northDoor.height / 2);
       }
       if (lv.currentRoom.southDoor != null) {
-        g.drawLine(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y + lv.currentRoom.height - 3, lv.currentRoom.southDoor.x + lv.currentRoom.southDoor.width / 2, lv.currentRoom.southDoor.y + lv.currentRoom.southDoor.height / 2);
+        g.drawLine(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y + lv.currentRoom.height - 3,
+            lv.currentRoom.southDoor.x + lv.currentRoom.southDoor.width / 2,
+            lv.currentRoom.southDoor.y + lv.currentRoom.southDoor.height / 2);
       }
       if (lv.currentRoom.eastDoor != null) {
-        g.drawLine(lv.currentRoom.x + lv.currentRoom.width - 3, lv.currentRoom.y + lv.currentRoom.height / 2, lv.currentRoom.eastDoor.x + lv.currentRoom.eastDoor.width / 2, lv.currentRoom.eastDoor.y + lv.currentRoom.eastDoor.height / 2);
+        g.drawLine(lv.currentRoom.x + lv.currentRoom.width - 3, lv.currentRoom.y + lv.currentRoom.height / 2,
+            lv.currentRoom.eastDoor.x + lv.currentRoom.eastDoor.width / 2,
+            lv.currentRoom.eastDoor.y + lv.currentRoom.eastDoor.height / 2);
       }
       if (lv.currentRoom.westDoor != null) {
-        g.drawLine(lv.currentRoom.x, lv.currentRoom.y + lv.currentRoom.height / 2, lv.currentRoom.westDoor.x + lv.currentRoom.westDoor.width / 2, lv.currentRoom.westDoor.y + lv.currentRoom.westDoor.height / 2);
+        g.drawLine(lv.currentRoom.x, lv.currentRoom.y + lv.currentRoom.height / 2,
+            lv.currentRoom.westDoor.x + lv.currentRoom.westDoor.width / 2,
+            lv.currentRoom.westDoor.y + lv.currentRoom.westDoor.height / 2);
       }
     }
 
-    private void makePlayer(Graphics g) { //skapar en liten cirkel för att visa vart spelaren är
+    private void makePlayer(Graphics g) { // skapar en liten cirkel för att visa vart spelaren är
       g.setColor(Color.BLACK);
       g.drawOval(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y + lv.currentRoom.height / 2, 10, 10);
       Color dataGul = new Color(255, 204, 17);
