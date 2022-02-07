@@ -53,6 +53,7 @@ public class LevelGUI implements Observer {
       super.paintComponent(g);
       makeRoom(g);
       makeCorridor(g);
+      makePath(g);
       makePlayer(g);
     }
 
@@ -87,19 +88,35 @@ public class LevelGUI implements Observer {
       }
     }
 
-    private void makePlayer(Graphics g){ //skapar en liten cirkel för att visa vart spelaren är
+    private void makePath(Graphics g) {
+      g.setColor(Color.red);
+      if (lv.currentRoom.northDoor != null) {
+        g.drawLine(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y + lv.currentRoom.height / 2, lv.currentRoom.northDoor.x + lv.currentRoom.northDoor.width / 2, lv.currentRoom.northDoor.y + lv.currentRoom.northDoor.height / 2);
+      }
+      if (lv.currentRoom.southDoor != null) {
+        g.drawLine(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y + lv.currentRoom.height / 2, lv.currentRoom.southDoor.x + lv.currentRoom.southDoor.width / 2, lv.currentRoom.southDoor.y + lv.currentRoom.southDoor.height / 2);
+      }
+      if (lv.currentRoom.eastDoor != null) {
+        g.drawLine(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y + lv.currentRoom.height / 2, lv.currentRoom.eastDoor.x + lv.currentRoom.eastDoor.width / 2, lv.currentRoom.eastDoor.y + lv.currentRoom.eastDoor.height / 2);
+      }
+      if (lv.currentRoom.westDoor != null) {
+        g.drawLine(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y + lv.currentRoom.height / 2, lv.currentRoom.westDoor.x + lv.currentRoom.westDoor.width / 2, lv.currentRoom.westDoor.y + lv.currentRoom.westDoor.height / 2);
+      }
+    }
+
+    private void makePlayer(Graphics g) { //skapar en liten cirkel för att visa vart spelaren är
       g.setColor(Color.BLACK);
-      g.drawOval(lv.currentRoom.x + lv.currentRoom.width/2, lv.currentRoom.y + lv.currentRoom.height/2, 10, 10);
+      g.drawOval(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y + lv.currentRoom.height / 2, 10, 10);
       Color dataGul = new Color(255, 204, 17);
       g.setColor(dataGul);
-      g.fillOval(lv.currentRoom.x + lv.currentRoom.width/2, lv.currentRoom.y + lv.currentRoom.height/2, 10, 10);
+      g.fillOval(lv.currentRoom.x + lv.currentRoom.width / 2, lv.currentRoom.y + lv.currentRoom.height / 2, 10, 10);
 
     }
 
     private class Listener implements KeyListener {
 
       public void keyPressed(KeyEvent arg0) {
-        switch(arg0.getKeyChar()){
+        switch (arg0.getKeyChar()) {
           case 'w':
             lv.move('n');
             break;
@@ -125,5 +142,4 @@ public class LevelGUI implements Observer {
     }
 
   }
-
 }

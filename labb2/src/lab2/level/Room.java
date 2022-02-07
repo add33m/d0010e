@@ -5,7 +5,7 @@ import java.awt.Color;
 import lab2.toolClasses.Vector2;
 
 public class Room {
-  Color floorColor = null;
+  Color floorColor;
   int width;
   int height;
   int x;
