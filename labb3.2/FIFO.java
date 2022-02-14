@@ -8,6 +8,7 @@ public class FIFO implements Queue {
   // Constructor, creates the ArrayList representing the queue
   public FIFO() {
     queue = new ArrayList<Object>();
+    maxSize = 0;
   }
   
   // This method returns the number of elements in this queue.
