@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-public class FIFO implements interfaces.Queue {
+import interfaces.Queue;
+
+public class FIFO implements Queue {
   private ArrayList<Object> queue;
   private int maxSize;
 
@@ -46,6 +48,7 @@ public class FIFO implements interfaces.Queue {
     Otherwise, this method returns false. In particular, it does not throw any exception, such as a
     ClassCastException.
     */
+  @Override
   public boolean equals(Object f) throws ClassCastException {
     if (!(f instanceof FIFO)) {
       throw new ClassCastException("f is not of the type FIFO");
