@@ -101,6 +101,9 @@ public class FIFO implements Queue {
   // This method adds the object item to the end of the queue
   public void add(Object item) {
     queue.add(item);
+    if (this.size() > this.maxSize) {
+      maxSize = this.size();
+    }
   }
 
   // This method removes the first object from the queue. If the queue is empty, a NoSuchElementException is thrown.
