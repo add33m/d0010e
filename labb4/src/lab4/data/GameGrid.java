@@ -49,8 +49,11 @@ public class GameGrid extends Observable {
 	 * @return the value of the specified location
 	 */
 	public Placed getLocation(int x, int y) {
-		return grid[x][y];
+		if (!checkXY(x, y)) {
+			return null;
+		}
 
+		return grid[x][y];
 	}
 
 	/**
@@ -71,17 +74,28 @@ public class GameGrid extends Observable {
 	 * @return true if the insertion worked, false otherwise
 	 */
 	public boolean move(int x, int y, Player player) {
+
+		System.out.println("GameGrid.move() was called");
+
 		if (!checkXY(x, y)) {
 			return false;
 		}
 		
 		if (grid[x][y] != Placed.EMPTY) {
 			return false;
-		} else if (player == Player.ME) {
-			grid[x][y] = Placed.ME;
-			return true;
 		} else {
-			grid[x][y] = Placed.OTHER;
+
+			System.out.println("Move is valid!");
+			
+			if (player == Player.ME) {
+				grid[x][y] = Placed.ME;
+			} else {
+				grid[x][y] = Placed.OTHER;
+			}
+
+			setChanged();
+			notifyObservers();
+
 			return true;
 		}
 	}
