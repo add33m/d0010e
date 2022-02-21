@@ -15,6 +15,8 @@ public class GameGrid extends Observable {
 
 	private int size;
 	private Placed[][] grid;
+	private int lastPlacedX = 0; // 0 is used because a default value will be necessary
+	private int lastPlacedY = 0;
 
 	private final int INROW = 5;
 
@@ -92,6 +94,10 @@ public class GameGrid extends Observable {
 			} else {
 				grid[x][y] = Placed.OTHER;
 			}
+			
+			// Remember that this is the latest square to be placed
+			lastPlacedX = x;
+			lastPlacedY = y;
 
 			setChanged();
 			notifyObservers();
@@ -114,13 +120,45 @@ public class GameGrid extends Observable {
 	}
 
 	/**
-	 * Check if a player has 5 in row
+	 * Check if a player has X in row
 	 * 
 	 * @param player the player to check for
 	 * @return true if player has 5 in row, false otherwise
 	 */
 	public boolean isWinner(Player player) {
-		// TODO: Implement this!
+		// Only check the latest placed square, since that's the only place where a winning move could have occurred
+		return (
+			isWinnerAlongAxis(player, lastPlacedX, lastPlacedY, 1, 0) ||
+			isWinnerAlongAxis(player, lastPlacedX, lastPlacedY, 0, 1) ||
+			isWinnerAlongAxis(player, lastPlacedX, lastPlacedY, 1, 1) ||
+			isWinnerAlongAxis(player, lastPlacedX, lastPlacedY, 1, -1)
+		);
+	}
+
+	private boolean isWinnerAlongAxis(Player player, int x0, int y0, int xstep, int ystep) {
+		int winCounter = 0;
+
+		for (int pos=(-INROW+1); pos<INROW; pos++) {
+			int x = x0 - pos*xstep;
+			int y = y0 - pos*ystep;
+
+			if (player == Player.ME && getLocation(x, y) == Placed.ME ||
+					player == Player.OTHER && getLocation(x, y) == Placed.OTHER
+			) {
+				// If the right player is found, increment the counter
+				winCounter++;
+
+				// If the win condition is met, a winner is found!
+				if (winCounter >= INROW) {
+					return true;
+				}
+
+			} else {
+				// If the wrong player or an empty square is found, reset the counter
+				winCounter = 0;
+			}
+		}
+
 		return false;
 	}
 

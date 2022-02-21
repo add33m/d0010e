@@ -1,11 +1,9 @@
 package lab4.gui;
 
-import java.lang.reflect.AnnotatedWildcardType;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import lab4.client.GomokuClient;
-import lab4.data.GameGrid;
 import lab4.data.GomokuGameState;
 
 /*
@@ -103,7 +100,8 @@ public class GomokuGUI implements Observer {
 
 		frame.setLocation(0, 0);
 		frame.setVisible(true);
-		frame.setSize(400, 400);
+		// vBox contains all elements properly aligned, so it's preferred size is the minimum necessary size
+		frame.setSize(vBox.getPreferredSize().width, vBox.getPreferredSize().height + hBox.getPreferredSize().height);
 	}
 
 	public void update(Observable arg0, Object arg1) {

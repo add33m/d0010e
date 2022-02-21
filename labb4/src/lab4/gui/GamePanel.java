@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Observer {
 		grid.addObserver(this);
 		Dimension d = new Dimension(grid.getSize() * UNIT_SIZE + 1, grid.getSize() * UNIT_SIZE + 1);
 		// this.setMinimumSize(d);
-		this.setPreferredSize(new Dimension(300, 300));
+		this.setPreferredSize(new Dimension(UNIT_SIZE * grid.getSize(), UNIT_SIZE * grid.getSize()));
 		this.setBackground(Color.WHITE);
 	}
 
@@ -66,18 +66,27 @@ public class GamePanel extends JPanel implements Observer {
 			for (int y = 0; y < size; y++) {
 				g.setColor(Color.black);
 				g.drawRect(x * UNIT_SIZE, y * UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
-				// g.setColor(Color.red);
-				// g.fillRect(x * UNIT_SIZE, y * UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
 
+				// Draw cross inset by .1 unit
 				if (grid.getLocation(x, y) == Placed.ME) {
 					g.setColor(Color.red);
-					g.drawLine(x*UNIT_SIZE, y*UNIT_SIZE, (x+1)*UNIT_SIZE, (y+1)*UNIT_SIZE); // ritar linje topleft till bottom right
-					g.drawLine(x*UNIT_SIZE, (y+1)*UNIT_SIZE, (x+1)*UNIT_SIZE, y*UNIT_SIZE); // ritar linje från bottomleft till top right
 
+					int inset = Math.round(UNIT_SIZE*.1f);
+
+					// ritar linje topleft till bottom right
+					g.drawLine(x*UNIT_SIZE + inset, y*UNIT_SIZE + inset, 
+										(x+1)*UNIT_SIZE - inset, (y+1)*UNIT_SIZE  - inset);
+					// ritar linje från bottomleft till top right
+					g.drawLine(x*UNIT_SIZE + inset, (y+1)*UNIT_SIZE - inset,
+										(x+1)*UNIT_SIZE - inset, y*UNIT_SIZE + inset);
 				}
 
+				// Draw circle inset by .1 unit
 				else if(grid.getLocation(x, y) == Placed.OTHER){
-					g.drawRect(x*UNIT_SIZE +5, y*UNIT_SIZE + 3, 5, 5);
+					g.setColor(Color.blue);
+					
+					int inset = Math.round(UNIT_SIZE*.1f);
+					g.drawOval(x*UNIT_SIZE + inset, y*UNIT_SIZE + inset, UNIT_SIZE - 2*inset, UNIT_SIZE - 2*inset);
 				}
 			}
 		}

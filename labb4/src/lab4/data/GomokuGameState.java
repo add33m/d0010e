@@ -92,16 +92,22 @@ public class GomokuGameState extends Observable implements Observer {
 		if (gameGrid.getLocation(x, y) == Placed.EMPTY) {
 			// Everything ok, make move
 			gameGrid.move(x, y, Player.ME);
-			client.sendMoveMessage(x, y);
-			currentState = GameState.OTHER_TURN;
-			message = "Opponent's turn";
+
+			// Check if move was a winning move, and provide an appropriate response
+			if (gameGrid.isWinner(Player.ME)) {
+				client.sendMoveMessage(x, y);
+				message = "You won";
+				currentState = GameState.FINISHED;
+			} else {
+				client.sendMoveMessage(x, y);
+				message = "Opponent's turn";
+				currentState = GameState.OTHER_TURN;
+			}
 		} else {
 			message = "You can only make moves in empty squares";
 		}
 		setChanged();
 		notifyObservers();
-
-		// TODO: Check win condition
 	}
 
 	/**
@@ -163,14 +169,16 @@ public class GomokuGameState extends Observable implements Observer {
 	public void receivedMove(int x, int y) {
 		gameGrid.move(x, y, Player.OTHER);
 		
-		currentState = GameState.MY_TURN;
-		message = "Your turn";
+		if (gameGrid.isWinner(Player.OTHER)) {
+			message = "Your opponent has won the game";
+			currentState = GameState.FINISHED;
+		} else {
+			message = "Your turn";
+			currentState = GameState.MY_TURN;
+		}
 
 		setChanged();
 		notifyObservers();
-
-
-		// TODO: Check win condition
 	}
 
 	public void update(Observable o, Object arg) {
