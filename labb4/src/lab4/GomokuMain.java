@@ -4,6 +4,12 @@ import lab4.client.GomokuClient;
 import lab4.data.GomokuGameState;
 import lab4.gui.GomokuGUI;
 
+/**
+ * The main class
+ * @author Adam
+ * @author Fredrik
+ */
+
 public class GomokuMain {
   public static void main(String[] args) {
     // A single argument providing a port number should be given

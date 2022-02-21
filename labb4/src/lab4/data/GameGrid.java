@@ -13,155 +13,155 @@ import util.Player;
 
 public class GameGrid extends Observable {
 
-	private int size;
-	private Placed[][] grid;
-	private int lastPlacedX = 0; // 0 is used because a default value will be necessary
-	private int lastPlacedY = 0;
+  private int size;
+  private Placed[][] grid;
+  private int lastPlacedX = 0; // 0 is used because a default value will be necessary
+  private int lastPlacedY = 0;
 
-	private final int INROW = 5;
+  private final int INROW = 5;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param size The width/height of the game grid
-	 */
-	public GameGrid(int size) {
-		this.size = size;
-		grid = new Placed[size][size];
+  /**
+   * Constructor
+   * 
+   * @param size The width/height of the game grid
+   */
+  public GameGrid(int size) {
+    this.size = size;
+    grid = new Placed[size][size];
 
-		// Example of 2D array: (x, y are flipped from the below example)
-		// grid = new Placed[][]{
-		// new Placed[]{Placed.EMPTY, Placed.EMPTY, Placed.EMPTY},
-		// new Placed[]{Placed.EMPTY, Placed.EMPTY, Placed.EMPTY},
-		// new Placed[]{Placed.EMPTY, Placed.EMPTY, Placed.EMPTY},
-		// };
+    // Example of 2D array: (x, y are flipped from the below example)
+    // grid = new Placed[][]{
+    // new Placed[]{Placed.EMPTY, Placed.EMPTY, Placed.EMPTY},
+    // new Placed[]{Placed.EMPTY, Placed.EMPTY, Placed.EMPTY},
+    // new Placed[]{Placed.EMPTY, Placed.EMPTY, Placed.EMPTY},
+    // };
 
-		for (int x = 0; x < size; x++) {
-			for (int y = 0; y < size; y++) {
-				grid[x][y] = Placed.EMPTY;
-			}
-		}
-	}
+    for (int x = 0; x < size; x++) {
+      for (int y = 0; y < size; y++) {
+        grid[x][y] = Placed.EMPTY;
+      }
+    }
+  }
 
-	/**
-	 * Reads a location of the grid
-	 * 
-	 * @param x The x coordinate
-	 * @param y The y coordinate
-	 * @return the value of the specified location
-	 */
-	public Placed getLocation(int x, int y) {
-		if (!checkXY(x, y)) {
-			return null;
-		}
+  /**
+   * Reads a location of the grid
+   * 
+   * @param x The x coordinate
+   * @param y The y coordinate
+   * @return the value of the specified location
+   */
+  public Placed getLocation(int x, int y) {
+    if (!checkXY(x, y)) {
+      return null;
+    }
 
-		return grid[x][y];
-	}
+    return grid[x][y];
+  }
 
-	/**
-	 * Returns the size of the grid
-	 * 
-	 * @return the grid size
-	 */
-	public int getSize() {
-		return size;
-	}
+  /**
+   * Returns the size of the grid
+   * 
+   * @return the grid size
+   */
+  public int getSize() {
+    return size;
+  }
 
-	/**
-	 * Enters a move in the game grid
-	 * 
-	 * @param x      the x position
-	 * @param y      the y position
-	 * @param player
-	 * @return true if the insertion worked, false otherwise
-	 */
-	public boolean move(int x, int y, Player player) {
+  /**
+   * Enters a move in the game grid
+   * 
+   * @param x      the x position
+   * @param y      the y position
+   * @param player
+   * @return true if the insertion worked, false otherwise
+   */
+  public boolean move(int x, int y, Player player) {
 
-		if (!checkXY(x, y)) {
-			return false;
-		}
-		
-		if (grid[x][y] != Placed.EMPTY) {
-			return false;
-		} else {
-			
-			if (player == Player.ME) {
-				grid[x][y] = Placed.ME;
-			} else {
-				grid[x][y] = Placed.OTHER;
-			}
-			
-			// Remember that this is the latest square to be placed
-			lastPlacedX = x;
-			lastPlacedY = y;
+    if (!checkXY(x, y)) {
+      return false;
+    }
+    
+    if (grid[x][y] != Placed.EMPTY) {
+      return false;
+    } else {
+      
+      if (player == Player.ME) {
+        grid[x][y] = Placed.ME;
+      } else {
+        grid[x][y] = Placed.OTHER;
+      }
+      
+      // Remember that this is the latest square to be placed
+      lastPlacedX = x;
+      lastPlacedY = y;
 
-			setChanged();
-			notifyObservers();
+      setChanged();
+      notifyObservers();
 
-			return true;
-		}
-	}
+      return true;
+    }
+  }
 
-	/**
-	 * Clears the grid of pieces
-	 */
-	public void clearGrid() {
-		for (int x = 0; x < size; x++) {
-			for (int y = 0; y < size; y++) {
-				grid[x][y] = Placed.EMPTY;
-			}
-		}
-		setChanged();
-		notifyObservers();
-	}
+  /**
+   * Clears the grid of pieces
+   */
+  public void clearGrid() {
+    for (int x = 0; x < size; x++) {
+      for (int y = 0; y < size; y++) {
+        grid[x][y] = Placed.EMPTY;
+      }
+    }
+    setChanged();
+    notifyObservers();
+  }
 
-	/**
-	 * Check if a player has X in row
-	 * 
-	 * @param player the player to check for
-	 * @return true if player has 5 in row, false otherwise
-	 */
-	public boolean isWinner(Player player) {
-		// Only check the latest placed square, since that's the only place where a winning move could have occurred
-		return (
-			isWinnerAlongAxis(player, lastPlacedX, lastPlacedY, 1, 0) ||
-			isWinnerAlongAxis(player, lastPlacedX, lastPlacedY, 0, 1) ||
-			isWinnerAlongAxis(player, lastPlacedX, lastPlacedY, 1, 1) ||
-			isWinnerAlongAxis(player, lastPlacedX, lastPlacedY, 1, -1)
-		);
-	}
+  /**
+   * Check if a player has X in row
+   * 
+   * @param player the player to check for
+   * @return true if player has 5 in row, false otherwise
+   */
+  public boolean isWinner(Player player) {
+    // Only check the latest placed square, since that's the only place where a winning move could have occurred
+    return (
+      isWinnerAlongAxis(player, lastPlacedX, lastPlacedY, 1, 0) ||
+      isWinnerAlongAxis(player, lastPlacedX, lastPlacedY, 0, 1) ||
+      isWinnerAlongAxis(player, lastPlacedX, lastPlacedY, 1, 1) ||
+      isWinnerAlongAxis(player, lastPlacedX, lastPlacedY, 1, -1)
+    );
+  }
 
-	private boolean isWinnerAlongAxis(Player player, int x0, int y0, int xstep, int ystep) {
-		int winCounter = 0;
+  private boolean isWinnerAlongAxis(Player player, int x0, int y0, int xstep, int ystep) {
+    int winCounter = 0;
 
-		for (int pos=(-INROW+1); pos<INROW; pos++) {
-			int x = x0 - pos*xstep;
-			int y = y0 - pos*ystep;
+    for (int pos=(-INROW+1); pos<INROW; pos++) {
+      int x = x0 - pos*xstep;
+      int y = y0 - pos*ystep;
 
-			if (player == Player.ME && getLocation(x, y) == Placed.ME ||
-					player == Player.OTHER && getLocation(x, y) == Placed.OTHER
-			) {
-				// If the right player is found, increment the counter
-				winCounter++;
+      if (player == Player.ME && getLocation(x, y) == Placed.ME ||
+          player == Player.OTHER && getLocation(x, y) == Placed.OTHER
+      ) {
+        // If the right player is found, increment the counter
+        winCounter++;
 
-				// If the win condition is met, a winner is found!
-				if (winCounter >= INROW) {
-					return true;
-				}
+        // If the win condition is met, a winner is found!
+        if (winCounter >= INROW) {
+          return true;
+        }
 
-			} else {
-				// If the wrong player or an empty square is found, reset the counter
-				winCounter = 0;
-			}
-		}
+      } else {
+        // If the wrong player or an empty square is found, reset the counter
+        winCounter = 0;
+      }
+    }
 
-		return false;
-	}
+    return false;
+  }
 
-	// Private method to check if x and y are valid positions within the game board
-	private boolean checkXY(int x, int y) {
-		return (x >= 0 && x < this.size &&
-				y >= 0 && y < this.size);
-	}
+  // Private method to check if x and y are valid positions within the game board
+  private boolean checkXY(int x, int y) {
+    return (x >= 0 && x < this.size &&
+        y >= 0 && y < this.size);
+  }
 
 }
