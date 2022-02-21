@@ -77,8 +77,6 @@ public class GameGrid extends Observable {
 	 */
 	public boolean move(int x, int y, Player player) {
 
-		System.out.println("GameGrid.move() was called");
-
 		if (!checkXY(x, y)) {
 			return false;
 		}
@@ -86,8 +84,6 @@ public class GameGrid extends Observable {
 		if (grid[x][y] != Placed.EMPTY) {
 			return false;
 		} else {
-
-			System.out.println("Move is valid!");
 			
 			if (player == Player.ME) {
 				grid[x][y] = Placed.ME;
