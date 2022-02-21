@@ -49,6 +49,13 @@ public class GamePanel extends JPanel implements Observer {
     return new int[] { xpos, ypos };
   }
 
+  
+  /**
+   * Method predefined by Håkan to repaint the grid when an update is received
+   * 
+   * @param arg0
+   * @param arg1
+   */
   public void update(Observable arg0, Object arg1) {
     this.repaint();
   }

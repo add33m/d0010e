@@ -131,6 +131,17 @@ public class GameGrid extends Observable {
     );
   }
 
+  
+  /**
+   * Looks for the win condition around the defined point (x0, y0) along the given axis (xstep, ystep)
+   * 
+   * @param player
+   * @param x0
+   * @param y0
+   * @param xstep
+   * @param ystep
+   * @return boolean
+   */
   private boolean isWinnerAlongAxis(Player player, int x0, int y0, int xstep, int ystep) {
     int winCounter = 0;
 
@@ -158,7 +169,14 @@ public class GameGrid extends Observable {
     return false;
   }
 
-  // Private method to check if x and y are valid positions within the game board
+  
+  /** 
+   * Private method to check if x and y are valid positions within the game board
+   * 
+   * @param x
+   * @param y
+   * @return boolean
+   */
   private boolean checkXY(int x, int y) {
     return (x >= 0 && x < this.size &&
         y >= 0 && y < this.size);

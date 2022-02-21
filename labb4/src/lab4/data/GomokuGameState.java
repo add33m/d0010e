@@ -183,6 +183,13 @@ public class GomokuGameState extends Observable implements Observer {
     notifyObservers();
   }
 
+  
+  /** 
+   * Method predefined by Håkan to update the game state based on receiving a connection
+   * 
+   * @param o
+   * @param arg
+   */
   public void update(Observable o, Object arg) {
 
     switch (client.getConnectionStatus()) {

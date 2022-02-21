@@ -106,6 +106,13 @@ public class GomokuGUI implements Observer {
     frame.setSize(vBox.getPreferredSize().width, vBox.getPreferredSize().height + hBox.getPreferredSize().height);
   }
 
+  
+  /**
+   * Method predefined by Håkan to update the buttons in the GUI based on the connection status
+   * 
+   * @param arg0
+   * @param arg1
+   */
   public void update(Observable arg0, Object arg1) {
 
     // Update the buttons if the connection status has changed

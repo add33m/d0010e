@@ -11,6 +11,12 @@ import lab4.gui.GomokuGUI;
  */
 
 public class GomokuMain {
+  
+  /** 
+   * Main function, entry point of the program
+   * 
+   * @param args
+   */
   public static void main(String[] args) {
     // A single argument providing a port number should be given
     if (args.length > 1) {
