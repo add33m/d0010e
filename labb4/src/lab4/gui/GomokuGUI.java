@@ -103,7 +103,7 @@ public class GomokuGUI implements Observer {
     frame.setLocation(0, 0);
     frame.setVisible(true);
     // vBox contains all elements properly aligned, so its preferred size is the minimum necessary size
-    frame.setSize(vBox.getPreferredSize().width, vBox.getPreferredSize().height + hBox.getPreferredSize().height);
+    frame.setSize(vBox.getPreferredSize().width + 20, vBox.getPreferredSize().height + hBox.getPreferredSize().height + 20);
   }
 
   
